@@ -20,6 +20,8 @@
             android:orientation="vertical">
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
+                android:background="@color/colorMain"
+                app:title="@string/app_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </android.support.v7.widget.Toolbar>
@@ -33,12 +35,19 @@
                 android:id="@+id/bottom_navigation_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:windowBackground"
+                android:background="@color/colorGray"
                 app:menu="@menu/bottom_nav"
                 >
             </android.support.design.widget.BottomNavigationView>
         </LinearLayout>
     </FrameLayout>
     <!--侧边栏区域-->
-
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_gravity="start"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/head_layout"
+        >
+    </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>
