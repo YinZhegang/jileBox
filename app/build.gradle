@@ -30,7 +30,7 @@ android {
     }
     lintOptions {
         //不在error情况下中断
-        
+
         abortOnError false
         //无视字符串缺少本地化的情况
         disable 'MissingTranslation'
@@ -90,18 +90,18 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationVariants.all {
-                variant->
-                variant.outputs.all {
-                    output->
-                    if (output.outputFile != null && variant.buildType.name.equals("release")) {
-							//此处路径为绝对路径，对应于不同的平台应做相应的修改
+                variant ->
+                    variant.outputs.all {
+                        output ->
+                            if (output.outputFile != null && variant.buildType.name.equals("release")) {
+                                //此处路径为绝对路径，对应于不同的平台应做相应的修改
                                 String os = System.getProperty("os.name");
                                 if (os.startsWith("win") || os.startsWith("Win")) {
                                     Properties properties = new Properties()
                                     InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream();
                                     properties.load(inputStream)
                                     def path = properties.getProperty('path')
-									def appName = properties.getProperty('appName')
+                                    def appName = properties.getProperty('appName')
                                     if (appName == null) {
                                         appName = "app"
                                     }
@@ -111,13 +111,13 @@ android {
                                         outputFileName = appName + "_" + ext_android.versionName +
                                                 "_" + releaseTime() + ".apk"
                                     } else {
-                                        
+
                                     }
                                 } else if (os.startsWith("mac") || os.startsWith("Mac")) {
 
                                 }
-							}
-                }
+                            }
+                    }
             }
         }
     }
@@ -131,11 +131,20 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //implementation "com.android.support:appcompat-v7:$ext_android.appcompatVersion"
-    //implementation "com.android.support:recyclerview-v7:$ext_android.appcompatVersion"
-    //implementation "com.android.support:design:$ext_android.appcompatVersion"
+    implementation "com.android.support:appcompat-v7:$ext_android.appcompatVersion"
+    implementation "com.android.support:recyclerview-v7:$ext_android.appcompatVersion"
+    implementation "com.android.support:design:$ext_android.appcompatVersion"
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    //butterknife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //retrofit + convert + gson + okhttp +picsso
+    implementation 'com.squareup.okhttp3:okhttp:3.1.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
